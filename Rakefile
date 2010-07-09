@@ -5,9 +5,9 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "trucker"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "rob@notch8.com"
+    gem.summary = %Q{Bring your legacy along}
+    gem.description = %Q{Trucker is a gem for migrating legacy data into a Rails app}
+    gem.email = "patrick@mokolabs.com"
     gem.homepage = "http://github.com/mokolabs/trucker"
     gem.authors = ["Patrick Crowley and Rob Kaufman"]
     gem.add_development_dependency "rspec", ">= 1.2.9"

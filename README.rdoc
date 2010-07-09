@@ -1,6 +1,6 @@
-= trucker
+= Trucker
 
-Description goes here.
+Trucker is a gem for migrating legacy data into a Rails app.
 
 == Note on Patches/Pull Requests
  
