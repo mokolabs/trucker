@@ -5,13 +5,13 @@ Here are some imaginary install instructions.
 
 2. Generate the basic trucker files
 
-  script/generate truck
+    script/generate truck
 
-  - Add legacy adapter to database.yml
-  - Add legacy base class
-  - (Optionally) Add legacy sub classes for all existing models
-  - Add app/models_legacy to load path in Rails Initializer config block
-  - Generate sample migration task (using pluralized model names)
+    - Add legacy adapter to database.yml
+    - Add legacy base class
+    - (Optionally) Add legacy sub classes for all existing models
+    - Add app/models_legacy to load path in Rails Initializer config block
+    - Generate sample migration task (using pluralized model names)
   
 3. Update database.yml with legacy database info
 
