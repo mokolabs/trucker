@@ -29,6 +29,18 @@ This folder will contain the base Legacy model, and all subclasses.
 
 This is the base Legacy model which connects to the legacy database and handles the migration.
 
+    class LegacyBase < ActiveRecord::Base
+      self.abstract_class = true
+      establish_connection "legacy"
+  
+      def migrate
+        new_record = self.class.to_s.gsub(/Legacy/,'::').constantize.new(map)
+        new_record[:id] = self.id
+        new_record.save
+      end
+
+    end
+
 
 /app/models_legacy/legacy_model.rb
 =================================
