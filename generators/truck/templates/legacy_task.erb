@@ -1,0 +1,13 @@
+namespace :db do
+  namespace :migrate do
+
+    <% legacy_models.each do |model_name| %>
+    desc 'Migrates <%= pluralize(model_name).downcase %>'
+    task :<%= pluralize(model_name).downcase %> => :environment do
+      migrate :<%= pluralize(model_name).downcase %>
+    end
+    
+    <% end %>
+
+  end
+end
