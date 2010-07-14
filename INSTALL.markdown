@@ -15,10 +15,12 @@ Here are some imaginary install instructions.
   
 3. Update database.yml with legacy database info
 
-4. Update legacy model table names as needed
+4. Run rake db:create:all to create the legacy database
 
-5. Update legacy model field mappings as needed
+5. Update legacy model table names as needed
 
-6. Start migrating!
+6. Update legacy model field mappings as needed
+
+7. Start migrating!
 
  
