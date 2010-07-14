@@ -8,9 +8,9 @@ http://pragdave.blogs.pragprog.com/pragdave/2006/01/sharing_externa.html
 
 Using this, I've developed a set of helpers for migrating code.
 
-- /app/models_legacy/
-- /app/models_legacy/legacy_base.rb
-- /app/models_legacy/legacy_model.rb
+- /app/models/legacy/
+- /app/models/legacy/legacy_base.rb
+- /app/models/legacy/legacy_model.rb
 - /config/database.yml
 - /config/environment.rb
 - /lib/migration_helper.rb
@@ -18,13 +18,13 @@ Using this, I've developed a set of helpers for migrating code.
 
 
 
-/app/models_legacy/
+/app/models/legacy/
 ===================
 
 This folder will contain the base Legacy model, and all subclasses.
 
 
-/app/models_legacy/legacy_base.rb
+/app/models/legacy/legacy_base.rb
 =================================
 
 This is the base Legacy model which connects to the legacy database and handles the migration.
@@ -42,10 +42,10 @@ This is the base Legacy model which connects to the legacy database and handles 
     end
 
 
-/app/models_legacy/legacy_model.rb
+/app/models/legacy/legacy_model.rb
 =================================
 
-This is a sample Legacy subclass, which specifies the legacy model name and defines a map of old field names to new field names. All Legacy models are stored in /app/models_legacy to keep your main app model namespace unaffected.
+This is a sample Legacy subclass, which specifies the legacy model name and defines a map of old field names to new field names. All Legacy models are stored in /app/models/legacy to keep your main app model namespace unaffected.
 
     class LegacyModel < LegacyBase
       set_table_name "model"
@@ -67,7 +67,7 @@ This is a sample Legacy subclass, which specifies the legacy model name and defi
 We need to update the app environment so we can load the legacy models correctly.
 
     Rails::Initializer.run do |config|
-      config.load_paths += %W( #{RAILS_ROOT}/app/models_legacy )
+      config.load_paths += %W( #{RAILS_ROOT}/app/models/legacy )
     end
 
 
@@ -87,7 +87,7 @@ By convention, I've used APPNAME_legacy for my legacy databases, but you can eas
 
 
 
-/app/models_legacy/legacy_base.rb
+/app/models/legacy/legacy_base.rb
 =================================
 
 This model connects to our legacy database, and provides a migration method.
