@@ -25,6 +25,15 @@ Rails::Generator::Commands::Create.class_eval do
     end
   end
   
+  def append(file, line)
+    logger.insert "#{line} at end of #{file}"
+    unless options[:pretend] || file_contains?(file, line)
+      File.open(file, "a") do |file|
+        file.write("\n" + line)
+      end
+    end
+  end
+  
 end
 
 Rails::Generator::Commands::Destroy.class_eval do
@@ -41,6 +50,10 @@ Rails::Generator::Commands::Destroy.class_eval do
       gsub_file file, "\n  #{line}", ''
     end
   end
+  
+  def append(file, line)
+    logger.insert "#{line} at end of #{file}"
+  end
 
 end
 
@@ -51,6 +64,10 @@ Rails::Generator::Commands::List.class_eval do
   
   def insert_after(file, line, stop='')
     logger.insert "#{line} into #{file}"
+  end
+  
+  def append(file, line)
+    logger.insert "#{line} at end of #{file}"
   end
   
 end

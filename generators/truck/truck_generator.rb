@@ -23,7 +23,7 @@ legacy:
   password:
 EOS
 
-      m.insert_before "config/database.yml", snippet, "production:"
+      m.append "config/database.yml", snippet
       
     end
   end
