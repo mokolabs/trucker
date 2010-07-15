@@ -100,9 +100,9 @@ Trucker is a gem that helps migrate legacy data into a Rails app.
     rake db:migrate:posts
 
 
-== Command line options for migrating rake tasks
+== Migration command line options
 
-Trucker rake tasks support several command line options:
+Trucker supports a few command line options when migrating records:
 
     rake db:migrate:posts limit=100 (migrates 100 records)
     rake db:migrate:posts limit=100 offset=100 (migrates 100 records, but skip the first 100 records)
