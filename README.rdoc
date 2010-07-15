@@ -62,8 +62,10 @@ Trucker is a gem for migrating legacy data into a Rails app.
       end
     end
 
-    Update the hash keys with new model values you wish to import, then add update values on the right with fields from your legacy database.
-    
+    Non-legacy model attributes on the left side.
+    Legacy model values on the right side.
+    (aka :new => legacy)
+  
 8. Start migrating!
    
    rake db:migrate:posts
