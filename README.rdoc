@@ -33,7 +33,9 @@ Trucker is a gem for migrating legacy data into a Rails app.
       
     (Make sure the legacy adapter is using the correct database name and other credentials.)
 
-4. Run <em>rake db:create:all</em> to create the legacy database
+4. If the legacy database doesn't already exist, add it.
+
+    rake db:create:all
 
 5. Import your legacy database
    
