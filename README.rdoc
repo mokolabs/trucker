@@ -16,25 +16,42 @@ Trucker is a gem for migrating legacy data into a Rails app.
     script/generate truck
 
     This will do the following things:
-    * Adds legacy adapter to database.yml
-    * Adds legacy base class
-    * Adds legacy sub classes for all existing models
-    * Adds app/models/legacy to load path in Rails Initializer config block
-    * Generates sample migration task (using pluralized model names)
+    * Add legacy adapter to database.yml
+    * Add legacy base class
+    * Add legacy sub classes for all existing models
+    * Add app/models/legacy to load path in Rails Initializer config block
+    * Generate sample migration task (using pluralized model names)
   
-3. Update database.yml with legacy database info
+3. Update database.yml with your legacy database info
 
 4. Run rake db:create:all to create the legacy database
 
-5. Import your legacy database.
-   (Make sure the legacy adapter is using the correct name.)
+5. Import your legacy database
+   (Make sure the legacy adapter is using the correct database name and other credentials.)
 
 6. Update legacy model table names as needed
 
+    class LegacyPost < LegacyBase
+      set_table_name "YOUR LEGACY TABLE NAME GOES HERE"
+    end
+
 7. Update legacy model field mappings as needed
 
+    class LegacyPost < LegacyBase
+      set_table_name "YOUR LEGACY TABLE NAME GOES HERE"
+  
+      def map
+        {
+          :headline => self.title.squish,
+          :body => self.long_text.squish
+        }
+      end
+    end
+
 8. Start migrating!
-   rake db:migrate:models
+   
+   rake db:migrate:posts
+
 
 == Background
 
