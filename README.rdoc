@@ -124,7 +124,7 @@ That said, if you need to pull off a complex migration for a model, you can use 
 
 Then just copy the migrate method from lib/trucker.rb and tweak accordingly.
 
-Here's an example of a custom helper used to migrate join tables on a bunch of models.
+As an example, here's a custom helper used to migrate join tables on a bunch of models.
 
     namespace :db do
       namespace :migrate do
