@@ -39,13 +39,13 @@ Trucker is a gem for migrating legacy data into a Rails app.
    
     mysql -u root app_legacy < old_database.sql
 
-6. Update legacy model table names as needed
+6. Update <em>set_table_name</em> in each of your legacy models as needed
 
     class LegacyPost < LegacyBase
       set_table_name "YOUR LEGACY TABLE NAME GOES HERE"
     end
 
-7. Update <em>set_table_name</em> in each of your legacy models as needed
+7. Update legacy model field mappings as needed
 
     class LegacyPost < LegacyBase
       set_table_name "YOUR LEGACY TABLE NAME GOES HERE"
