@@ -1,6 +1,6 @@
 = Trucker
 
-Trucker is a gem for migrating legacy data into a Rails app.
+Trucker is a gem that helps migrate legacy data into a Rails app.
 
 == Install
 
@@ -99,11 +99,37 @@ Trucker is a gem for migrating legacy data into a Rails app.
    
    rake db:migrate:posts
 
+== Custom Helpers
+
+Trucker is intended for migrating data from fairly simple web apps that started life on PHP, Perl, etc. So, if you're migrating data from an enterprise system, this may not be your best choice.
+
+That said, if you need to pull off a complex migration for a model, you can use a custom helper method to override Trucker's default migrate method in your rake task.
+
+    namespace :db do
+      namespace :migrate do
+
+        ...
+    
+        desc 'Migrate pain_in_the_ass model'
+        task :pain_in_the_ass => :environment do
+          Trucker.migrate :pain_in_the_ass, :helper => pain_in_the_ass_migration
+        end 
+
+      end
+    end
+
+    def pain_in_the_ass_migration
+      # Custom code goes here
+    end
+
+Then just copy the migrate method from lib/trucker.rb and tweak accordingly.
+
 
 == Background
 
 Trucker is based on a migration technique using legacy models first pioneered by Dave Thomas:
 http://pragdave.blogs.pragprog.com/pragdave/2006/01/sharing_externa.html
+
 
 == Note on Patches/Pull Requests
  
