@@ -26,7 +26,7 @@ Rails::Generator::Commands::Create.class_eval do
   end
   
   def append(file, line)
-    logger.insert "#{line} at end of #{file}"
+    logger.insert "added legacy adapter to end of database.yml"
     unless options[:pretend] || file_contains?(file, line)
       File.open(file, "a") do |file|
         file.write("\n" + line)
@@ -52,7 +52,7 @@ Rails::Generator::Commands::Destroy.class_eval do
   end
   
   def append(file, line)
-    logger.insert "#{line} at end of #{file}"
+    logger.insert "added legacy adapter to end of database.yml"
   end
 
 end
@@ -67,7 +67,7 @@ Rails::Generator::Commands::List.class_eval do
   end
   
   def append(file, line)
-    logger.insert "#{line} at end of #{file}"
+    logger.insert "added legacy adapter to end of database.yml"
   end
   
 end
