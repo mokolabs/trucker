@@ -7,6 +7,8 @@ Trucker is a gem for migrating legacy data into a Rails app.
 
 1. Install the trucker gem
 
+    sudo gem install trucker
+
 2. Add trucker to your <em>config.gem</em> block in environment.rb
   
     config.gem "trucker"
