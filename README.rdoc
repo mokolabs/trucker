@@ -2,6 +2,12 @@
 
 Trucker is a gem for migrating legacy data into a Rails app.
 
+
+== Background
+
+Trucker is based on a migration technique using legacy models first pioneered by Dave Thomas:
+http://pragdave.blogs.pragprog.com/pragdave/2006/01/sharing_externa.html
+
 == Note on Patches/Pull Requests
  
 * Fork the project.
@@ -10,7 +16,7 @@ Trucker is a gem for migrating legacy data into a Rails app.
   future version unintentionally.
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+* Send a pull request. Bonus points for topic branches.
 
 == Copyright
 
