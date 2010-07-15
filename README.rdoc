@@ -141,6 +141,12 @@ http://pragdave.blogs.pragprog.com/pragdave/2006/01/sharing_externa.html
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send a pull request. Bonus points for topic branches.
 
+== Contributors
+
+* Patrick Crowley
+* Rob Kaufman
+* Jordan Fowler
+
 == Copyright
 
 Copyright (c) 2010 Patrick Crowley and Rob Kaufman. See LICENSE for details.
