@@ -97,7 +97,7 @@ Trucker is a gem that helps migrate legacy data into a Rails app.
   
 9. Start migrating!
    
-   rake db:migrate:posts
+    rake db:migrate:posts
 
 == Custom Helpers
 
