@@ -24,7 +24,7 @@ Trucker is a gem for migrating legacy data into a Rails app.
     * Add app/models/legacy to load path in Rails Initializer config block
     * Generate sample migration task (using pluralized model names)
   
-3. Update <em>database.yml</em> with your legacy database info
+3. Update the legacy database adapter in <em>database.yml</em> with your legacy database info
 
     legacy:
       adapter: mysql
@@ -33,7 +33,7 @@ Trucker is a gem for migrating legacy data into a Rails app.
       username: root
       password:
       
-    (Make sure the legacy adapter is using the correct database name and other credentials.)
+    (By convention, we recommend naming your legacy database APP_NAME_legacy.)
 
 4. If the legacy database doesn't already exist, add it.
 
