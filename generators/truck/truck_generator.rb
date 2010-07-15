@@ -10,20 +10,25 @@ class TruckGenerator < Rails::Generator::Base
       m.file 'legacy_base.rb', 'app/models/legacy/legacy_base.rb'
 
       @legacy_models.each do |model_name|
-        m.template 'legacy_model.erb', "app/models/legacy/#{model_name.downcase}.rb", :assigns => { :model_name => model_name }
+        m.template 'legacy_model.erb', "app/models/legacy/legacy_#{model_name.downcase}.rb", :assigns => { :model_name => model_name }
       end
 
       m.directory 'lib/tasks'
       m.template 'legacy_task.erb', 'lib/tasks/legacy.rake', :assigns => { :legacy_models => @legacy_models }
+      
       snippet = <<EOS
 legacy:
   adapter: mysql
   database: #{RAILS_ROOT.split('/').last}_legacy
+  encoding: utf8
   username:
   password:
 EOS
 
       m.append "config/database.yml", snippet
+      
+      snippet = 'config.load_paths += %W( #{RAILS_ROOT}/app/models/legacy )'
+      m.insert_after "config/environment.rb", snippet, '^Rails::Initializer\.run do.+$'
       
     end
   end

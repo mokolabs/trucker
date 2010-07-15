@@ -16,12 +16,15 @@ Rails::Generator::Commands::Create.class_eval do
     end
   end
   
-  def insert_after(file, line, stop='(class|module)')
+  def insert_after(file, line, stop='^(class|module) .+$')
     logger.insert "#{line} into #{file}"
+    @run = false
     unless options[:pretend] || file_contains?(file, line)
       gsub_file file, /#{stop}/ do |match|
+        @run = true
         "#{match}\n  #{line}"
       end
+      raise "Append Key Not Found, was looking for #{stop}" unless @run
     end
   end
   

@@ -1,3 +1,6 @@
+require 'trucker'
+include Trucker
+
 namespace :db do
   namespace :migrate do
 
@@ -11,7 +14,7 @@ namespace :db do
     <%- legacy_models.each do |model_name| -%>
     desc 'Migrates <%= model_name.pluralize.downcase %>'
     task :<%= model_name.pluralize.downcase %> => :environment do
-      migrate :<%= model_name.pluralize.downcase %>
+      Trucker.migrate :<%= model_name.pluralize.downcase %>
     end
     
     <%- end -%>

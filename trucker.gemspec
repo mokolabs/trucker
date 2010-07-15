@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Patrick Crowley and Rob Kaufman"]
-  s.date = %q{2010-07-14}
+  s.date = %q{2010-07-15}
   s.description = %q{Trucker is a gem for migrating legacy data into a Rails app}
   s.email = %q{patrick@mokolabs.com}
   s.extra_rdoc_files = [
@@ -26,16 +26,16 @@ Gem::Specification.new do |s|
      "generators/truck/USAGE",
      "generators/truck/lib/insert_commands.rb",
      "generators/truck/templates/legacy_base.rb",
-     "generators/truck/templates/legacy_initializer.erb",
      "generators/truck/templates/legacy_model.erb",
      "generators/truck/templates/legacy_task.erb",
      "generators/truck/truck_generator.rb",
-     "lib/trucker.rb"
+     "lib/trucker.rb",
+     "rails/init.rb"
   ]
   s.homepage = %q{http://github.com/mokolabs/trucker}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Bring your legacy along}
   s.test_files = [
     "spec/spec_helper.rb",
@@ -46,7 +46,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
       s.add_development_dependency(%q<yard>, [">= 0"])
     else
