@@ -203,6 +203,11 @@ As an example, here's a custom helper used to migrate join tables on a bunch of 
     end
 
 
+== Sample application
+
+Check out the {Trucker sample app}[http://github.com/mokolabs/trucker_sample_app] for a working example of Trucker-based legacy data migration.
+
+
 == Background
 
 Trucker is based on a migration technique using legacy models first pioneered by Dave Thomas:
