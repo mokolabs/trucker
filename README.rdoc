@@ -73,25 +73,15 @@ Trucker is a gem that helps migrate legacy data into a Rails app.
 
       def map
         {
-          :headline => self.title.squish.capitalize,
-          :body => self.long_text.squish
-        }
-      end
-    end
-
-    class LegacyPost < LegacyBase
-      set_table_name "YOUR LEGACY TABLE NAME GOES HERE"
-
-      def map
-        {
-          :headline => tweak_title(self.title.squish),
-          :body => self.long_text.squish
+          :headline => self.title.squish.capitalize, # <= Added capitalize method
+          :body => tweak_body(self.long_text.squish) # <= Added tweak_body method
         }
       end
       
-      def tweak_title(title)
-        title = title.capitalize
-        title = title.gsub(/teh/, "the")
+      # Insert helper methods as needed
+      def tweak_body(body)
+        body = body.gsub(/<br \//,"\n") # <= Convert break tags into normal line breaks
+        body = body.gsub(/teh/, "the")  # <= Fix common typos
       end
     end
   
