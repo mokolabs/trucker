@@ -62,7 +62,7 @@ Trucker is a gem that helps migrate legacy data into a Rails app.
       end
     end
 
-    Non-legacy model attributes on the left side.
+    New model attributes on the left side.
     Legacy model attributes on the right side.
     (aka :new_field => legacy_field)
     
