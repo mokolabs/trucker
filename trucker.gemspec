@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{trucker}
-  s.version = "0.4.1"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Patrick Crowley and Rob Kaufman"]
-  s.date = %q{2010-07-21}
+  s.date = %q{2010-09-09}
   s.description = %q{Trucker is a gem for migrating legacy data into a Rails app}
   s.email = %q{patrick@mokolabs.com}
   s.extra_rdoc_files = [
