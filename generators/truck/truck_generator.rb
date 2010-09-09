@@ -27,7 +27,7 @@ EOS
 
       m.append "config/database.yml", snippet
       
-      snippet = 'config.load_paths += %W( #{RAILS_ROOT}/app/models/legacy )'
+      snippet = 'config.autoload_paths += %W( #{RAILS_ROOT}/app/models/legacy )'
       m.insert_after "config/environment.rb", snippet, '^Rails::Initializer\.run do.+$'
       
     end
