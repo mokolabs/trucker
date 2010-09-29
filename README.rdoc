@@ -216,9 +216,10 @@ http://pragdave.blogs.pragprog.com/pragdave/2006/01/sharing_externa.html
 
 == Contributors
 
-* Patrick Crowley
-* Rob Kaufman
-* Jordan Fowler
+* Patrick Crowley / mokolabs
+* Rob Kaufman / notch8
+* Jordan Fowler / TheBreeze
+* Roel Bondoc / roelbondoc
 
 
 == Copyright
