@@ -7,7 +7,7 @@ module Trucker
     unless options[:helper]
   
       # Grab model to migrate
-      model = name.to_s.singularize.capitalize
+      model = name.to_s.classify
   
       # Wipe out existing records
       model.constantize.delete_all
