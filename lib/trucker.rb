@@ -19,11 +19,11 @@ module Trucker
   
       # Set import counter
       counter = 0
-      counter += offset_for_records if offset_for_records
-      total_records = "Legacy#{model}".constantize.find(:all).size
+      counter += offset_for_records.to_i if offset_for_records
+      total_records = "Legacy#{model}".constantize.count
   
       # Start import
-      "Legacy#{model}".constantize.find(:all, with(options)).each do |record|
+      query(model).each do |record|
         counter += 1
         puts status + " (#{counter}/#{total_records})"
         record.migrate
@@ -33,18 +33,31 @@ module Trucker
     end
   end
 
-  protected
+  def self.query(model)
+    eval construct_query(model)
+  end
 
-    def self.with(options={})
-      {:limit => number_of_records, :offset => offset_for_records}.merge(options)
+  def self.construct_query(model)
+    base = "Legacy#{model.singularize.titlecase}"
+    if ENV['limit'] or ENV['offset']
+      complete = base + "#{number_of_records}#{offset_for_records}"
+    else
+      complete = base + ".all"
     end
+    complete
+  end
 
-    def self.number_of_records
-      nil || ENV['limit'].to_i if ENV['limit'].to_i > 0
-    end
+  def self.batch(method)
+    nil || ".#{method}(#{ENV[method].to_i})" if ENV[method].to_i > 0
+  end
 
-    def self.offset_for_records
-      nil || ENV['offset'].to_i if ENV['offset'].to_i > 0
-    end
+  def self.number_of_records
+    batch("limit")
+  end
+
+  def self.offset_for_records
+    batch("offset")
+  end
   
 end
+
