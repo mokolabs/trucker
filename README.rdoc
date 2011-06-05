@@ -193,6 +193,31 @@ As an example, here's a custom helper used to migrate join tables on a bunch of 
     end
 
 
+== ProTip: Catching Validation Errors
+
+Here's the standard `migrate` method in `LegacyBase`:
+
+    def migrate
+      new_record = self.class.to_s.gsub(/Legacy/,'::').constantize.new(map)
+      new_record[:id] = self.id
+      new_record.save
+    end
+
+And here's a handy variant:
+
+    def migrate
+      new_record = self.class.to_s.gsub(/Legacy/,'::').constantize.new(map)
+      new_record[:id] = self.id
+      begin
+        new_record.save!
+      rescue Exception => e
+        puts "error saving #{self.class} #{self.id}!"
+        puts e.inspect
+      end 
+    end
+
+Note that this version responds to failed saves by simply logging it to `stderr` and going on to the next one like Jay-Z. In practice, this might not be what you want. Your mileage may vary, so season to taste.
+
 == Sample application
 
 Check out the {Trucker sample app}[http://github.com/mokolabs/trucker_sample_app] for a working example of Trucker-based legacy data migration.
