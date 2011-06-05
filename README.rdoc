@@ -202,8 +202,9 @@ Check out the {Trucker sample app}[http://github.com/mokolabs/trucker_sample_app
 
 Adapted Trucker itself, but not its generators, to Rails 3.1 compatibility. Further work remains
 to bring the generators up to date. If you use Trucker with the current (June 2011) Rails 3.1
-release candidate and MySQL, make sure you use the latest mysql2 gem, as other versions, or the
-original mysql gem, will cause explosive failure. (Postgres and SQLite are fine.)
+release candidate and MySQL, make sure you use the latest mysql2 gem (currently 0.3.2), as other
+versions, or the original mysql gem, will cause explosive pants-shitting failure. (Postgres and
+SQLite are fine.)
 
 Rails 3.1 compatible code lives on the rails31 branch.
 
