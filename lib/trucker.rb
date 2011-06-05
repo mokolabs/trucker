@@ -39,8 +39,8 @@ module Trucker
 
   def self.construct_query(model)
     base = "Legacy#{model.singularize.titlecase}"
-    if ENV['limit'] or ENV['offset']
-      complete = base + "#{number_of_records}#{offset_for_records}"
+    if ENV['limit'] or ENV['offset'] or ENV['where']
+      complete = base + "#{where}#{number_of_records}#{offset_for_records}"
     else
       complete = base + ".all"
     end
@@ -48,7 +48,11 @@ module Trucker
   end
 
   def self.batch(method)
-    nil || ".#{method}(#{ENV[method].to_i})" if ENV[method].to_i > 0
+    nil || ".#{method}(#{ENV[method]})" unless ENV[method].blank?
+  end
+
+  def self.where
+    batch("where")
   end
 
   def self.number_of_records
