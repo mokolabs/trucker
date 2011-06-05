@@ -198,6 +198,15 @@ As an example, here's a custom helper used to migrate join tables on a bunch of 
 Check out the {Trucker sample app}[http://github.com/mokolabs/trucker_sample_app] for a working example of Trucker-based legacy data migration.
 
 
+== Rails 3.1 Compatibility
+
+Adapted Trucker itself, but not its generators, to Rails 3.1 compatibility. Further work remains
+to bring the generators up to date. If you use Trucker with the current (June 2011) Rails 3.1
+release candidate and MySQL, make sure you use the latest mysql2 gem, as other versions, or the
+original mysql gem, will cause explosive failure. (Postgres and SQLite are fine.)
+
+Rails 3.1 compatible code lives on the rails31 branch.
+
 == Background
 
 Trucker is based on a migration technique using legacy models first pioneered by Dave Thomas:
@@ -220,6 +229,7 @@ http://pragdave.blogs.pragprog.com/pragdave/2006/01/sharing_externa.html
 * Rob Kaufman / notch8
 * Jordan Fowler / TheBreeze
 * Roel Bondoc / roelbondoc
+* Giles Bowkett / gilesbowkett (GitHub) / gilesgoatboy (Twitter)
 
 
 == Copyright
