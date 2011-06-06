@@ -1,19 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-class LegacyMuppet
-  class << self
-    def limit(number)
-      self
-    end
-    def offset(number)
-      self
-    end
-    def all
-      self
-    end
-  end
-end
-
 describe "Trucker builds ActiveRecord queries in Rails 3 syntax" do
   before(:each) do
     ENV['offset'] = nil
