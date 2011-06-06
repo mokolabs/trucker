@@ -98,7 +98,7 @@ Trucker supports a few command line options when migrating records:
     rake db:migrate:posts limit=100 offset=100 # migrates 100 records, but skips first 100 records
     rake db:migrate:users limit=1 where=":username => 'gilesgoatboy'" # migrates just one record
 
-You can pass just about anything to a where clause, but checking it in the console ahead of time is strongly recommended.
+You can pass just about anything to a where clause, but checking it in the console ahead of time is strongly recommended. Most obvious use case: migrating just one record to verify migrating happens the way you want it to.
 
 == Custom migration labels
 
