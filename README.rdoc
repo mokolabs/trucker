@@ -213,7 +213,7 @@ And here's a handy variant:
       begin
         new_record.save!
       rescue Exception => e
-        puts "error saving #{self.class} #{self.id}!"
+        puts "error saving #{new_record.class} #{new_record.id}!"
         puts e.inspect
       end 
     end
