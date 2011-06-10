@@ -14,12 +14,12 @@ module Trucker
 
       # Status message
       status = "Migrating "
-      status += "#{number_of_records || "all"} #{label || name}"
-      status += " after #{offset_for_records}" if offset_for_records
+      status += "#{limit || "all"} #{label || name}"
+      status += " after #{offset}" if offset
   
       # Set import counter
       counter = 0
-      counter += offset_for_records.to_i if offset_for_records
+      counter += offset.to_i if offset
       total_records = "Legacy#{model}".constantize.count
   
       # Start import
@@ -37,12 +37,18 @@ module Trucker
     eval construct_query(model)
   end
 
+  # FIXME: this looks like a pretty coherent argument for a Model class
+  def self.base(model)
+    # this might look baffling, so check the specs. String#titlecase is badly named (in
+    # my opinion) because in addition to title-casing, it also arrogantly adds a space
+    "Legacy#{model.singularize.titlecase.split(" ").join}"
+  end
+
   def self.construct_query(model)
-    base = "Legacy#{model.singularize.titlecase}"
     if ENV['limit'] or ENV['offset'] or ENV['where']
-      complete = base + "#{where}#{number_of_records}#{offset_for_records}"
+      complete = base(model) + "#{where}#{limit}#{offset}"
     else
-      complete = base + ".all"
+      complete = base(model) + ".all"
     end
     complete
   end
@@ -55,11 +61,11 @@ module Trucker
     batch("where")
   end
 
-  def self.number_of_records
+  def self.limit
     batch("limit")
   end
 
-  def self.offset_for_records
+  def self.offset
     batch("offset")
   end
   
