@@ -4,7 +4,10 @@ class LegacyBase < ActiveRecord::Base
   
   def migrate
     @new_record = self.class.to_s.gsub(/Legacy/,'::').constantize.new(map)
-    @new_record[:id] = self.id
+    @new_record[:id] = self.id unless @dont_migrate_ids
+    @associate.each do |association, value|
+      @new_record.send(association.to_s + "=", value)
+    end
     begin
       @new_record.save!
     rescue Exception => e
