@@ -258,7 +258,7 @@ http://pragdave.blogs.pragprog.com/pragdave/2006/01/sharing_externa.html
 * Jordan Fowler / TheBreeze
 * Roel Bondoc / roelbondoc
 * Giles Bowkett / gilesbowkett (GitHub) / gilesgoatboy (Twitter)
-
+* Mike Ballou / ballou88
 
 == Copyright
 
