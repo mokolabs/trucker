@@ -3,128 +3,146 @@ Trucker is a gem that helps migrate legacy data into a Rails app.
 
 ## Installation
 
-### Install the trucker gem
-`sudo gem install trucker`
+1. Install the trucker gem
+  ```bash
+  sudo gem install trucker
+  ```
 
-### Add the gem
-Add trucker to your <em>config.gem</em> block in `environment.rb`.
-```ruby  
-config.gem "trucker"
-```
+2. Add trucker to your `config.gem` block in `environment.rb`.
+  ```ruby  
+  config.gem "trucker"
+  ```
 
-### Generate the basic trucker files
-```bash
-script/generate truck
-```
+3. Generate the basic trucker files
+  ```bash
+  script/generate truck
+  ```
 
-This will do the following things:
-- Add legacy adapter to database.yml
-- Add legacy base class
-- Add legacy sub classes for all existing models
-- Add app/models/legacy to autoload_paths in Rails Initializer config block
-- Generate sample migration task (using pluralized model names)
+  This will do the following things:
+  - Add legacy adapter to `database.yml`
+  - Add `app/models/legacy` directory
+  - Add `app/models/legacy` to `autoload_paths` in Rails Initializer config block
+  - Add `app/models/legacy/legacy_base.rb` (from which legacy models will inherit)
+  - Add legacy sub classes for all existing models
+  - Generate sample migration task (using pluralized model names)
   
-### Update the legacy database adapter in <em>database.yml</em> with your legacy database info
+4. Update the legacy database adapter in `database.yml` with your legacy database info
 
-```yaml
-legacy:
-  adapter: mysql
-  encoding: utf8
-  database: app_legacy
-  username: root
-  password:
-```
+  ```yaml
+  legacy:
+    adapter: mysql
+    encoding: utf8
+    database: app_legacy
+    username: root
+    password:
+  ```
 
-(By convention, we recommend naming your legacy database `APP_NAME_legacy`.)
+  By convention, we recommend naming your legacy database `APP_legacy`, just as your
+  other databases might be named `APP_development`, `APP_production`, etc.
 
-### Database
-If the legacy database doesn't already exist, add it.
-```bash
-rake db:create:all
-```
+5. If the legacy database doesn't already exist, add it.
+  ```bash
+  rake db:create:all
+  ```
 
-### Legacy data
-Import your legacy data into the legacy database.
-```bash
-mysql -u root app_legacy < old_database.sql
-```
-
-### `set_table_name`
-Update `set_table_name` in each of your legacy models as needed.
-```ruby
-class LegacyPost < LegacyBase
-  set_table_name "LEGACY_TABLE_NAME_GOES_HERE"
-end
-```
-
-### Field mappings
-Update legacy model field mappings as needed.
-
-```ruby
-class LegacyPost < LegacyBase
-  set_table_name "YOUR LEGACY TABLE NAME GOES HERE"
-
-  def map
-    {
-      :headline => self.title.squish,
-      :body => self.long_text.squish
-    }
+6. Import your legacy data into the legacy database.
+  ```bash
+  mysql -u root app_legacy < old_database.sql
+  ```
+  
+  If you're not using mysql, you should change this command as needed.
+  
+7. Custom your table name for each of your legacy models.
+  ```ruby
+  class LegacyPost < LegacyBase
+    set_table_name "LEGACY_TABLE_NAME_GOES_HERE"
   end
-end
-```
+  ```
+  
+  Since you're migrating data from an old database, your table names may not 
+  follow Rails conventions for database table naming. If so, you will need to 
+  set the `set_table_name` value for each of your legacy models to match the 
+  name of table from which you will be importing data.
+  
+  For instance, in the example above, if your old posts were stored in an 
+  `articles` table, you would customize `set_table_name` like so:
+  
+  ```ruby
+  class LegacyPost < LegacyBase
+    set_table_name "articles"
+  end
+  ```
+  
+8. Update legacy model field mappings.
 
-New model attributes on the left side.
-Legacy model attributes on the right side.
-(aka :new_field => legacy_field)
+  ```ruby
+  class LegacyPost < LegacyBase
+    set_table_name "LEGACY_TABLE_NAME_GOES_HERE"
+
+    def map
+      {
+        :headline => self.title.squish,
+        :body => self.long_text.squish
+      }
+    end
+  end
+  ```
+
+  This is where you will connect your old database attributes with your new ones. 
+  The map method is really just a hash which uses your new model attribute names
+  as keys and your legacy model attributes as values.
+  
+  (aka `:new_field => self.legacy_field`)
+  
+  Note: make sure to add `self.` to each legacy attribute name.
     
-### Need to tweak some data?
-Just add some core ruby methods or add a helper method.
+9. Need to tweak some data? Just add some core ruby methods or add a helper method.
 
-```ruby
-class LegacyPost < LegacyBase
-  set_table_name "YOUR LEGACY TABLE NAME GOES HERE"
+  ```ruby
+  class LegacyPost < LegacyBase
+    set_table_name "LEGACY_TABLE_NAME_GOES_HERE"
 
-  def map
-    {
-      :headline => self.title.squish.capitalize, # <= Added capitalize method
-      :body => tweak_body(self.long_text.squish) # <= Added tweak_body method
-    }
-  end
+    def map
+      {
+        :headline => self.title.squish.capitalize, # <= Added capitalize method
+        :body => tweak_body(self.long_text.squish) # <= Added tweak_body method
+      }
+    end
   
-  # Insert helper methods as needed
-  def tweak_body(body)
-    body = body.gsub(/<br \//,"\n") # <= Convert break tags into normal line breaks
-    body = body.gsub(/teh/, "the")  # <= Fix common typos
+    # Insert helper methods as needed
+    def tweak_body(body)
+      body = body.gsub(/<br \//,"\n") # <= Convert break tags into normal line breaks
+      body = body.gsub(/teh/, "the")  # <= Fix common typos
+    end
   end
-end
-```
+  ```
   
-### Start migrating!
-```bash
-rake db:migrate:posts
-```
+10. Start migrating!
+  ```bash
+  rake db:migrate:posts
+  ```
 
 ## Migration command line options
 Trucker supports a few command line options when migrating records:
 
-```bash
-rake db:migrate:posts limit=100 (migrates 100 records)
-rake db:migrate:posts limit=100 offset=100 (migrates 100 records, but skip the first 100 records)
-```
+  ```bash
+  rake db:migrate:posts limit=100 (migrates 100 records)
+  rake db:migrate:posts limit=100 offset=100 (migrates 100 records, but skip the first 100 records)
+  ```
 
 ## Custom migration labels
 You can tweak the default migration output generated by Trucker by using the `:label` option.
 
-```bash
-rake db:migrate:posts
-=> Migrating posts
+  ```bash
+  rake db:migrate:posts
+  => Migrating posts
 
-rake db:migrate:posts, :label => "blog posts"
-=> Migrating blog posts
-```
+  rake db:migrate:posts, :label => "blog posts"
+  => Migrating blog posts
+  ```
 
 ## Custom helpers
-Trucker is intended for migrating data from fairly simple web apps that started life on PHP, Perl, etc. So, if you're migrating data from an enterprise system, this may not be your best choice.
+Trucker works great for migrating data from many legacy data sources such as apps built with PHP, Perl, Python, or even older versions of Rails (where upgrading an existing Rails code base is not practical). But, if you're migrating data from a large enterprise system, Trucker may not be your best choice.
 
 That said, if you need to pull off a complex migration for a model, you can use a custom helper method to override Trucker's default migrate method in your rake task.
 
@@ -144,7 +162,7 @@ def pain_in_the_ass_migration
 end
 ```
 
-Then just copy the migrate method from `lib/trucker.rb` and tweak accordingly.
+If you don't want to write your custom migration method from scratch, you can copy trucker's migrate method method from [lib/trucker.rb](https://github.com/mokolabs/trucker/blob/master/lib/trucker.rb) and tweak accordingly.
 
 As an example, here's a custom helper used to migrate join tables on a bunch of models.
 
@@ -225,11 +243,12 @@ http://pragdave.blogs.pragprog.com/pragdave/2006/01/sharing_externa.html
 
 
 ## Contributors
-- Patrick Crowley / mokolabs
-- Rob Kaufman / notch8
-- Jordan Fowler / TheBreeze
-- Roel Bondoc / roelbondoc
+- [Patrick Crowley](https://github.com/mokolabs/)
+- [Rob Kaufman](https://github.com/notch8/)
+- [Jordan Fowler](https://github.com/thebreeze/)
+- [Roel Bondoc](https://github.com/roelbondoc/)
+- [Olivier Lacan](https://github.com/olivierlacan/)
 
 
 ## Copyright
-Copyright (c) 2010 Patrick Crowley and Rob Kaufman. See [LICENSE](LICENSE) for details.
+Copyright (c) 2014 Patrick Crowley and Rob Kaufman. See [LICENSE](LICENSE) for details.
