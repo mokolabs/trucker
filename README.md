@@ -1,5 +1,5 @@
 # Trucker
-Trucker is a gem that helps migrate legacy data into a Rails app.
+Use Trucker to migrate legacy data into your Rails app.
 
 ## Installation
 
