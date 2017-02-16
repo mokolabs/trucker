@@ -55,21 +55,21 @@ Use Trucker to migrate legacy data into your Rails app.
 7. Custom your table name for each of your legacy models.
   ```ruby
   class LegacyPost < LegacyBase
-    set_table_name "LEGACY_TABLE_NAME_GOES_HERE"
+    self.table_name =  "LEGACY_TABLE_NAME_GOES_HERE"
   end
   ```
   
   Since you're migrating data from an old database, your table names may not 
   follow Rails conventions for database table naming. If so, you will need to 
-  set the `set_table_name` value for each of your legacy models to match the 
+  set the `self.table_name = ` value for each of your legacy models to match the 
   name of table from which you will be importing data.
   
   For instance, in the example above, if your old posts were stored in an 
-  `articles` table, you would customize `set_table_name` like so:
+  `articles` table, you would customize `self.table_name = ` like so:
   
   ```ruby
   class LegacyPost < LegacyBase
-    set_table_name "articles"
+    self.table_name =  "articles"
   end
   ```
   
@@ -77,7 +77,7 @@ Use Trucker to migrate legacy data into your Rails app.
 
   ```ruby
   class LegacyPost < LegacyBase
-    set_table_name "LEGACY_TABLE_NAME_GOES_HERE"
+    self.table_name =  "LEGACY_TABLE_NAME_GOES_HERE"
 
     def map
       {
@@ -100,7 +100,7 @@ Use Trucker to migrate legacy data into your Rails app.
 
   ```ruby
   class LegacyPost < LegacyBase
-    set_table_name "LEGACY_TABLE_NAME_GOES_HERE"
+    self.table_name =  "LEGACY_TABLE_NAME_GOES_HERE"
 
     def map
       {
