@@ -1,5 +1,5 @@
 class Legacy<%= model_name.classify %> < LegacyBase
-  set_table_name "<%= model_name.pluralize %>"
+  self.table_name =  "<%= model_name.pluralize %>"
 
   def map
     {
