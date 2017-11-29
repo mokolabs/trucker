@@ -16,7 +16,7 @@ class TruckGenerator < Rails::Generators::Base
       
     snippet = <<EOS
 legacy:
-  adapter: mysql
+  adapter: mysql2
   database: #{Rails.root.to_s.split('/').last}_legacy
   encoding: utf8
   username:
@@ -24,6 +24,9 @@ legacy:
 EOS
 
     append_to_file "config/database.yml", snippet
+
+    snippet = ' config.autoload_paths << "#{Rails.root}/app/models/legacy"'
+    insert_after "config/application.rb", snippet, "    # -- all .rb files in that directory are automatically loaded.\n"
       
   end
 
