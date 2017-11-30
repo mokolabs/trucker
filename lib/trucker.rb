@@ -20,10 +20,10 @@ module Trucker
       # Set import counter
       counter = 0
       counter += offset_for_records if offset_for_records
-      total_records = "Legacy#{model}".constantize.find(:all).size
+      total_records = "Legacy#{model}".constantize.count
   
       # Start import
-      "Legacy#{model}".constantize.find(:all, with(options)).each do |record|
+      "Legacy#{model}".constantize.limit(number_of_records).offset(offset_for_records).each do |record|
         counter += 1
         puts status + " (#{counter}/#{total_records})"
         record.migrate
@@ -34,10 +34,6 @@ module Trucker
   end
 
   protected
-
-    def self.with(options={})
-      {:limit => number_of_records, :offset => offset_for_records}.merge(options)
-    end
 
     def self.number_of_records
       nil || ENV['limit'].to_i if ENV['limit'].to_i > 0

@@ -3,19 +3,19 @@ Use Trucker to migrate legacy data into your Rails app.
 
 ## Installation
 
-1. Install the trucker gem
-  ```bash
-  sudo gem install trucker
+1. Add the trucker gem in to your Gemfile
+  ```ruby
+  gem 'trucker'
   ```
 
-2. Add trucker to your `config.gem` block in `environment.rb`.
-  ```ruby  
-  config.gem "trucker"
+2. Bundle 
+  ```bash
+  bundle install
   ```
 
 3. Generate the basic trucker files
   ```bash
-  script/generate truck
+  rails g truck
   ```
 
   This will do the following things:

@@ -1,12 +1,10 @@
 # Mostly pinched from http://github.com/ryanb/nifty-generators/tree/master
 
-Rails::Generator::Commands::Base.class_eval do
+Rails::Generators::Actions.class_eval do
   def file_contains?(relative_destination, line)
     File.read(destination_path(relative_destination)).include?(line)
   end
-end
 
-Rails::Generator::Commands::Create.class_eval do
   def insert_before(file, line, stop='^(class|module) .+$')
     logger.insert "#{line} into #{file}"
     unless options[:pretend] || file_contains?(file, line)
@@ -37,9 +35,6 @@ Rails::Generator::Commands::Create.class_eval do
     end
   end
   
-end
-
-Rails::Generator::Commands::Destroy.class_eval do
   def insert_before(file, line, stop='')
     logger.remove "#{line} from #{file}"
     unless options[:pretend]
@@ -58,9 +53,6 @@ Rails::Generator::Commands::Destroy.class_eval do
     logger.insert "added legacy adapter to end of database.yml"
   end
 
-end
-
-Rails::Generator::Commands::List.class_eval do
   def insert_before(file, line, stop='')
     logger.insert "#{line} into #{file}"
   end
